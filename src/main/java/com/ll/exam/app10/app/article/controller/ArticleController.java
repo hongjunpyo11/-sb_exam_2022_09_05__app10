@@ -43,7 +43,6 @@ public class ArticleController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
     public String write(@AuthenticationPrincipal MemberContext memberContext, @Valid ArticleForm articleForm, MultipartRequest multipartRequest) {
-        }
 
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         Article article = articleService.write(memberContext.getId(), articleForm.getSubject(), articleForm.getContent());
@@ -81,7 +80,7 @@ public class ArticleController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @ResponseBody
+    @ResponseBody // 임시
     public String modify(@AuthenticationPrincipal MemberContext memberContext, Model model, @PathVariable Long id, @Valid ArticleForm articleForm, MultipartRequest multipartRequest) {
         Article article = articleService.getForPrintArticleById(id);
 
