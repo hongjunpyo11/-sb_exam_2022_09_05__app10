@@ -27,9 +27,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/css/bootstrap.min.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 <header>
     <div class="container">
-        <a href="/static">메인</a>
+        <a href="/">메인</a>
         <a href="/about">어바웃</a>
         <a href="/member/login" sec:authorize="isAnonymous()">로그인</a>
         <a href="/member/join" sec:authorize="isAnonymous()">회원가입</a>
@@ -37,13 +40,15 @@
         <a href="/member/profile" sec:authorize="isAuthenticated()">프로파일</a>
         <a href="/member/modify" sec:authorize="isAuthenticated()">정보수정</a>
         <a href="/article/write" sec:authorize="isAuthenticated()">글쓰기</a>
+        <a href="/article/list">글 리스트</a>
     </div>
 
     <hr>
 
     <div class="container">
         <header sec:authorize="isAuthenticated()" class="flex items-center gap-2">
-            <img class="w-10 h-10 object-cover rounded" th:src="@{${#authentication.principal.profileImgRedirectUrl}}" alt="">
+            <img class="w-10 h-10 object-cover rounded" th:src="@{${#authentication.principal.profileImgRedirectUrl}}"
+                 alt="">
 
             <div th:text="|${#authentication.principal.username}님 환영합니다.|"></div>
         </header>
@@ -59,6 +64,17 @@
 <footer>
 
 </footer>
+
+<script src="/resource/common/common.js"></script>
+
+<script th:inline="javascript">
+    const params = /*[[ ${param} ]]*/ null;
+
+    if (params.msg) {
+        successModal(params.msg);
+    }
+
+</script>
 
 </body>
 
