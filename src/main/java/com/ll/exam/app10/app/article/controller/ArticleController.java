@@ -10,8 +10,8 @@ import com.ll.exam.app10.app.security.dto.MemberContext;
 import com.ll.exam.app10.util.Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,11 +36,9 @@ public class ArticleController {
     @GetMapping("/list")
     public String showList(Model model) {
         List<Article> articles = articleService.getArticles();
-        model.addAttribute("articles", articles);
+        articleService.loadForPrintData(articles);
 
-        for ( Article article : articles ) {
-            articleService.loadForPrintData(article);
-        }
+        model.addAttribute("articles", articles);
 
         return "article/list";
     }
